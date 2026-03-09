@@ -1,43 +1,48 @@
 package com.saikrishna.backenddemo.controller;
 import com.saikrishna.backenddemo.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import com.saikrishna.backenddemo.service.StudentService;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @RestController
 public class HelloController {
 
-    private List<Student> students = new ArrayList<>();
+    private final StudentService studentService;
+
+    public HelloController(StudentService studentService)
+    {
+        this.studentService = studentService;
+    }
 
     @GetMapping("/students")
     public List<Student> getStudent()
     {
-        return students;
+        return studentService.getStudents();
     }
 
     @PostMapping("/students")
     public Student createStudent(@RequestBody Student student)
     {
-        students.add(student);
-        return student;
+        return studentService.addStudent(student);
     }
 
     @GetMapping("/students/{id}")
     public Student getStudentById(@PathVariable int id)
     {
-        for(Student s: students)
-        {
-            if(s.getId() == id)
-            {
-                return s;
-            }
-        }
-        return null;
+        return studentService.getStudentById(id);
+    }
+
+    @PutMapping("/students/{id}")
+    public Student updateStudent(@PathVariable int id, @RequestBody Student student)
+    {
+        return studentService.updateStudent(id, student);
+    }
+
+    @DeleteMapping("/students/{id}")
+    public Student deleteStudent(@PathVariable int id)
+    {
+        return studentService.deleteStudent(id);
     }
 
 

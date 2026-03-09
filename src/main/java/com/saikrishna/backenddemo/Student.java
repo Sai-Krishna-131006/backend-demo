@@ -9,6 +9,14 @@ public class Student
 
     public Student(){}
 
+    public Student(Student student)
+    {
+        id = student.id;
+        name = student.name;
+        age = student.age;
+        department = student.department;
+
+    }
     public Student(int id, String name, int age , String department)
     {
         this.id = id;
@@ -32,5 +40,20 @@ public class Student
     public String getDepartment()
     {
         return department;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setAge(int age)
+    {
+        this.age = age;
+    }
+
+    public void setDepartment(String department)
+    {
+        this.department = department;
     }
 }
